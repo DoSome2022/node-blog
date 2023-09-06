@@ -5,6 +5,7 @@
 -  指南（三）- 273  
 - 指南 （四）- 314  
 - 指南（五）- 356  
+- 指南（六）- 438  
 
 
 ---------
@@ -431,6 +432,61 @@ app.listen(3000,()=>{
 })
 
 
+```
+
+---
+
+## 指南（六）- 438  
+
+要做的事: 
+
+- 建立views && templates page
+
+---
+
+### 建立views && templates page 
+
+1. 在目錄裹開一個views的文件夾
+```
+├── node_modules
+├── package.json
+├── package-lock.json
+├── server.js
+├── views  //加了
+```
+2. 在views裹分別創建about.ejs , blog.ejs , home.ejs , login.ejs , register.ejs
+```
+├── node_modules
+├── package.json
+├── package-lock.json
+├── server.js
+├── views
+│   ├── about.ejs
+│   ├── blog.ejs
+│   ├── home.ejs
+│   ├── login.ejs
+│   └── register.ejs
+
+```  
+3. views/about.ejs  
+```
+about
+```  
+4. views/blog.ejs  
+```
+blog
+```
+5. views/home.ejs
+```
+home
+```  
+6. views/login.ejs
+```
+login
+```
+7. views/register.ejs
+```
+register
 ```
 
 ---
