@@ -1,7 +1,8 @@
 ## 手把手nodejs指南
 
-. 指南（一）- 3  
-. 指南（二）- 204  
+-  指南（一）- 3  
+-  指南（二）- 204  
+-  指南（三）- 273  
 
 ---------
 事前準備:  
@@ -269,3 +270,43 @@ npm start
 最主要都是看 3000
 
 ---
+
+## 指南（三）- 273  
+
+要做的事: 
+
+- 建立API && 測試API  
+
+---
+
+### 建立API && 測試API  
+
+1. ./ server.js  
+```
+import express from "express";
+const app = express();
+
+
+app.get('/',(req,res)=>{  //增加
+    res.send('is work')   //增加
+})   //增加
+
+
+app.listen(3000,()=>{
+    console.log('3000')
+})
+
+```
+2. 之後開始測驗API  
+    用vscode裹的Thunder   
+    在終端機  
+    ```
+    npm start
+    ```
+
+    在Thunder 
+    <img src="./node-blog/API 測試 .png">  
+
+    看到 is work 你就是成功
+
+    ---
