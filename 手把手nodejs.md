@@ -3,6 +3,7 @@
 -  指南（一）- 3  
 -  指南（二）- 204  
 -  指南（三）- 273  
+- 指南 （四）- 314  
 
 ---------
 事前準備:  
@@ -310,3 +311,44 @@ app.listen(3000,()=>{
     看到 is work 你就是成功
 
     ---
+
+    ## 指南(四) - 314  
+
+    要做的事：
+    - 建立多個API 
+
+    ---
+    1. ./ server.js  
+
+```
+import express from "express";
+const app = express();
+
+
+app.get('/',(req,res)=>{  
+    res.send('home') // is work 改了 home  
+})  
+
+app.get('/about',(req,res)=>{  //增加  
+    res.send('about')  //增加  
+})//增加  
+
+app.get('/register',(req,res)=>{ //增加  
+    res.send('register') //增加  
+}) //增加  
+
+app.get('/login', (req,res)=>{  //增加   
+    res.send('login') //增加  
+})  //增加  
+
+app.get('/blog',(req,res)=>{  //增加  
+    res.send('blog')  //增加  
+})  //增加  
+
+
+app.listen(3000,()=>{  
+    console.log('3000')  
+})  
+
+```
+---

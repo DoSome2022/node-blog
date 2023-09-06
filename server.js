@@ -3,7 +3,23 @@ const app = express();
 
 
 app.get('/',(req,res)=>{
-    res.send('is work')
+    res.send('home')
+})
+
+app.get('/about',(req,res)=>{
+    res.send('about')
+})
+
+app.get('/register',(req,res)=>{
+    res.send('register')
+})
+
+app.get('/login', (req,res)=>{
+    res.send('login')
+})
+
+app.get('/blog',(req,res)=>{
+    res.send('blog')
 })
 
 
