@@ -4,6 +4,8 @@
 -  指南（二）- 204  
 -  指南（三）- 273  
 - 指南 （四）- 314  
+- 指南（五）- 356  
+
 
 ---------
 事前準備:  
@@ -351,4 +353,84 @@ app.listen(3000,()=>{
 })  
 
 ```
+---
+
+## 指南（五）- 356  
+
+要做的事：  
+- 安裝View Engine  
+- 設定View Engine  
+
+---
+###    安裝View Engine  
+
+1. 在終端機  
+```
+npm install ejs
+```
+之後在 package.json 裹  
+```
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "node -v 16.20.1",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",  //會自動增加  
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}
+```
+---
+
+
+### 設定View Engine   
+
+1.  ./server.js
+
+```
+import express from "express";
+const app = express();
+
+// set view engine
+app.set('view engine' , 'ejs');  //增加
+
+
+// router
+app.get('/',(req,res)=>{
+    res.send('home')
+})
+
+app.get('/about',(req,res)=>{
+    res.send('about')
+})
+
+app.get('/register',(req,res)=>{
+    res.send('register')
+})
+
+app.get('/login', (req,res)=>{
+    res.send('login')
+})
+
+app.get('/blog',(req,res)=>{
+    res.send('blog')
+})
+
+
+app.listen(3000,()=>{
+    console.log('3000')
+})
+
+
+```
+
 ---

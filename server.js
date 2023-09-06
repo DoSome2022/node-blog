@@ -1,7 +1,11 @@
 import express from "express";
 const app = express();
 
+// set view engine
+app.set('view engine' , 'ejs');
 
+
+// router
 app.get('/',(req,res)=>{
     res.send('home')
 })
