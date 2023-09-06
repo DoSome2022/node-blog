@@ -1,6 +1,7 @@
 ## 手把手nodejs指南
 
-. 指南（一） - 3  
+. 指南（一）- 3  
+. 指南（二）- 204  
 
 ---------
 事前準備:  
@@ -200,3 +201,71 @@ dist
 ```
 
 ----
+
+ ## 指南（二）- 204
+
+ 要做的事:  
+ 1. 建立 web server  
+ 2. 運行 web server
+ ----
+
+ ### 1.  建立 web server  
+ ---
+
+ 1. ./package.json
+ ```
+ {
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "node -v 16.20.1", //“  ”改了 “node -v 16.20.1”
+  "main": "server.js",  // “index.js” 改了 "server.js"
+  "type": "module", //加了
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js" //加了
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^3.0.1"
+  }
+}
+
+ ```
+
+ 2.  在目錄新開名叫server.js 的檔案  
+ ```
+├── node_modules
+├── package.json
+├── package-lock.json
+├── server.js //新加
+
+ ```
+3. ./server.js
+```
+import express from "express";
+const app = express();
+
+app.listen(3000,()=>{
+    console.log('3000')
+})
+
+```
+### 2. 運行 web server  
+
+1. 在終端機  
+```
+npm start
+```
+之後在終端機顯示以下
+```
+> blog@1.0.0 start
+> node server.js
+
+3000
+
+```
+最主要都是看 3000
+
+---
