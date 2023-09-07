@@ -6,6 +6,8 @@
 - 指南 （四）- 314  
 - 指南（五）- 356  
 - 指南（六）- 438  
+- 指南（七）- 494  
+
 
 
 ---------
@@ -487,6 +489,374 @@ login
 7. views/register.ejs
 ```
 register
+```
+
+---
+
+## 指南（七）- 494  
+
+public裹的assets在 github 到拿資源 
+
+---
+
+要做的事:  
+- 修改html 內容  
+
+---
+
+### 修改html 內容  
+
+1. views/about.ejs  
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>About us - Brand</title>
+    <link rel="stylesheet" href="../public/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+    <link rel="stylesheet" href="../public/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">
+    <link rel="stylesheet" href="../public/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="/index.html">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html" style="margin-left: 11px;margin-right: 14px;">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about.html">About us</a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link" href="/post.html">Blog Post</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/register.html">register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login.html">login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background-image:url('/assets/img/about-bg.jpg?h=ca94606afe09dc1190c07f9b89d907e7');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="site-heading">
+                        <h1>About Me</h1><span class="subheading">This is what I do</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto">
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe nostrum ullam eveniet pariatur voluptates odit, fuga atque ea nobis sit soluta odio, adipisci quas excepturi maxime quae totam ducimus consectetur?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius praesentium recusandae illo eaque architecto error, repellendus iusto reprehenderit, doloribus, minus sunt. Numquam at quae voluptatum in officia voluptas voluptatibus, minus!</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequuntur magnam, excepturi aliquid ex itaque esse est vero natus quae optio aperiam soluta voluptatibus corporis atque iste neque sit tempora!</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></li>
+                    </ul>
+                    <p class="text-muted copyright">Copyright&nbsp;©&nbsp;Brand 2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script>
+</body>
+
+</html>
+```
+2. views/blog.ejs  
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Blog Post - Brand</title>
+    <link rel="stylesheet" href="../public/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+    <link rel="stylesheet" href="../public/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">
+    <link rel="stylesheet" href="../public/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="/index.html">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html" style="margin-left: 11px;margin-right: 14px;">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about.html">About us</a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link" href="/post.html">Blog Post</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/register.html">register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login.html">login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background-image:url('/assets/img/post-bg.jpg?h=9b3eae5bf913af77d61c0390cba13bf5');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading">
+                        <h1>Man must explore, and this is exploration at its greatest</h1>
+                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2><span class="meta">Posted by&nbsp;<a href="#">Start Bootstrap</a>&nbsp;on August 24, 2018</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <p>Never in all their history have men been able truly to conceive of the world as one: a single sphere, a globe, having the qualities of a globe, a round earth in which all the directions eventually meet, in which there is no center because every point, or none, is center — an equal earth which all men occupy as equals. The airman's earth, if free men make it, will be truly round: a globe in practice, not in theory.</p>
+                    <p>Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science. The early warnings about technological dangers also come from science.</p>
+                    <p>What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.</p>
+                    <p>A Chinese tale tells of some men sent to harm a young girl who, upon seeing her beauty, become her protectors rather than her violators. That's how I felt seeing the Earth for the first time. I could not help but love and cherish her.</p>
+                    <p>For those who have seen the Earth from space, and for the hundreds and perhaps thousands more who will, the experience most certainly changes your perspective. The things that we share in our world are far more valuable than those which divide us.</p>
+                    <h2 class="section-heading">Heading</h2>
+                    <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+                    <p>There can be no thought of finishing for ‘aiming for the stars.’ Both figuratively and literally, it is a task to occupy the generations. And no matter how much progress one makes, there is always the thrill of just beginning.</p>
+                    <figure>
+                        <blockquote class="blockquote">
+                            <p class="mb-0">The dreams of yesterday are the hopes of today and the reality of tomorrow. Science has not yet mastered prophecy. We predict too much for the next year and yet far too little for the next ten.</p>
+                        </blockquote>
+                    </figure>
+                    <p>Spaceflights cannot be stopped. This is not the work of any one man or even a group of men. It is a historical process which mankind is carrying out in accordance with the natural laws of human development.</p>
+                    <h2 class="section-heading">Reaching for the Stars</h2>
+                    <p>As we got further and further away, it [the Earth] diminished in size. Finally it shrank to the size of a marble, the most beautiful you can imagine. That beautiful, warm, living object looked so fragile, so delicate, that if you touched it with a finger it would crumble and fall apart. Seeing this has to change a man.</p><a href="#"><img class="img-fluid" src="/assets/img/post-sample-image.jpg?h=a3cddd21d9e594fe69a0fc790b5ca3d0"></a><span class="text-muted caption">To go places and do things that have never been done before – that’s what living is all about.</span>
+                    <p>Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds, to seek out new life and new civilizations, to boldly go where no man has gone before.</p>
+                    <p>As I stand out here in the wonders of the unknown at Hadley, I sort of realize there’s a fundamental truth to our nature, Man must explore, and this is exploration at its greatest.</p>
+                    <p><span>Placeholder text by&nbsp;</span><a href="http://spaceipsum.com">Space Ipsum</a><span>&nbsp;Photographs by&nbsp;</span><a href="https://www.flickr.com/photos/nasacommons/">NASA on The Commons</a>.</p>
+                </div>
+            </div>
+        </div>
+    </article>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></li>
+                    </ul>
+                    <p class="text-muted copyright">Copyright&nbsp;©&nbsp;Brand 2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script>
+</body>
+
+</html>
+```
+3. views/home.ejs  
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="../public/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+    <link rel="stylesheet" href="../public/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">
+    <link rel="stylesheet" href="../public/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="/index.html">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html" style="margin-left: 11px;margin-right: 14px;">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about.html">About us</a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link" href="/post.html">Blog Post</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/register.html">register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login.html">login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead" style="background-image:url('/assets/img/home-bg.jpg?h=ed6236475a1226b743bf65e6f1bebb34');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="site-heading">
+                        <h1>Clean Blog</h1><span class="subheading">A Blog Theme by Start Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-twitter fa-stack-1x fa-inverse"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-facebook fa-stack-1x fa-inverse"></i></span></li>
+                        <li class="list-inline-item"><span class="fa-stack fa-lg"><i class="fa fa-circle fa-stack-2x"></i><i class="fa fa-github fa-stack-1x fa-inverse"></i></span></li>
+                    </ul>
+                    <p class="text-muted copyright">Copyright&nbsp;©&nbsp;Brand 2023</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script>
+</body>
+
+</html>
+```
+4. views/login.ejs  
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Login - Brand</title>
+    <link rel="stylesheet" href="../public/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+    <link rel="stylesheet" href="../public/assets/css/Lora.css?h=a4fa0940ea012724c5b96afc8bbcdf11">
+    <link rel="stylesheet" href="../public/assets/css/Open%20Sans.css?h=f387147e95af341639f58a013c3cb46a">
+    <link rel="stylesheet" href="../public/assets/css/Login-Form-Basic-icons.css?h=befd8a398792e305b7ffd4a176b5b585">
+</head>
+
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/index.html">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/index.html" style="margin-left: 11px;margin-right: 14px;">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about.html">About us</a></li>
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link" href="/post.html">Blog Post</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register.html">register</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login.html">login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<body style="background: rgb(96,96,96);color: rgb(255,255,255);">
+    <section class="position-relative py-4 py-xl-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h2>Log in</h2>
+                    <p class="w-lg-50">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.</p>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card mb-5">
+                        <div class="card-body d-flex flex-column align-items-center" style="background: #5c5c5c;color: rgb(255, 255, 255);--bs-body-color: #ffffff;">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                                </svg></div>
+                            <form class="text-center" method="post">
+                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script>
+</body>
+
+</html>
+```
+5. views/register.ejs  
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register - Brand</title>
+    <link rel="stylesheet" href="../public/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+    <link rel="stylesheet" href="../public/assets/css/Lora.css?h=a4fa0940ea012724c5b96afc8bbcdf11">
+    <link rel="stylesheet" href="../public/assets/css/Open%20Sans.css?h=f387147e95af341639f58a013c3cb46a">
+    <link rel="stylesheet" href="../public/assets/css/Login-Form-Basic-icons.css?h=befd8a398792e305b7ffd4a176b5b585">
+</head>
+
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/index.html">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/index.html" style="margin-left: 11px;margin-right: 14px;">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about.html">About us</a></li>
+                <li class="nav-item"></li>
+                <li class="nav-item"><a class="nav-link" href="/post.html">Blog Post</a></li>
+                <li class="nav-item"><a class="nav-link" href="/register.html">register</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login.html">login</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<body style="background: rgb(96,96,96);color: rgb(255,255,255);">
+    <section class="position-relative py-4 py-xl-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md-8 col-xl-6 text-center mx-auto">
+                    <h2>Register</h2>
+                    <p class="w-lg-50">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.</p>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 col-xl-4">
+                    <div class="card mb-5">
+                        <div class="card-body d-flex flex-column align-items-center" style="background: #5c5c5c;color: rgb(255, 255, 255);--bs-body-color: #ffffff;">
+                            <div class="bs-icon-xl bs-icon-circle bs-icon-primary bs-icon my-4"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-person">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"></path>
+                                </svg></div>
+                            <form class="text-center" method="post">
+                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">register</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script>
+</body>
+
+</html>
 ```
 
 ---
