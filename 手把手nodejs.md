@@ -8,6 +8,7 @@
 - 指南（六）- 438  
 - 指南（七）- 494  
 - 指南（八） - 864  
+- 指南（九）- 1002  
 
 
 
@@ -999,4 +1000,99 @@ app.listen(3000,()=>{
 ```
 
 ---   
+## 指南（九）- 1002  
 
+要做的事:  
+- del html bug  
+
+---
+
+1. views/about.ejs  
+```
+
+...
+
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button> //改了 href 
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/" style="margin-left: 11px;margin-right: 14px;">Home</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/about">About us</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog Post</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/register">register</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/login">login</a></li>  //改了 href
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+...
+
+```
+2. views/blog.ejs
+```
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button> //改了 href 
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/" style="margin-left: 11px;margin-right: 14px;">Home</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/about">About us</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog Post</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/register">register</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/login">login</a></li>  //改了 href
+            </ul>
+        </div>
+    </div>
+</nav>
+```
+3. views/home.ejs
+```
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button> //改了 href 
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/" style="margin-left: 11px;margin-right: 14px;">Home</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/about">About us</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog Post</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/register">register</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/login">login</a></li>  //改了 href
+            </ul>
+        </div>
+    </div>
+</nav>
+```
+4. views/login.ejs
+```
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button> //改了 href 
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/" style="margin-left: 11px;margin-right: 14px;">Home</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/about">About us</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog Post</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/register">register</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/login">login</a></li>  //改了 href
+            </ul>
+        </div>
+    </div>
+</nav>
+```
+5. views/register.ejs
+```
+<nav class="navbar navbar-light navbar-expand-lg fixed-top" id="mainNav">
+    <div class="container"><a class="navbar-brand" href="/">Brand</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button> //改了 href 
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/" style="margin-left: 11px;margin-right: 14px;">Home</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/about">About us</a></li> //改了 href
+                <li class="nav-item"><a class="nav-link" href="/blog">Blog Post</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/register">register</a></li>  //改了 href
+                <li class="nav-item"><a class="nav-link" href="/login">login</a></li>  //改了 href
+            </ul>
+        </div>
+    </div>
+</nav>
+```
+
+---
