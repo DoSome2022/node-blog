@@ -7,6 +7,7 @@
 - 指南（五）- 356  
 - 指南（六）- 438  
 - 指南（七）- 494  
+- 指南（八） - 864  
 
 
 
@@ -860,3 +861,142 @@ public裹的assets在 github 到拿資源
 ```
 
 ---
+
+## 指南（八） - 864  
+要做的事：
+- 把ejs render 出來
+---
+
+### 把ejs render 出來  
+
+1.  ./server.js
+
+```
+import express from "express";
+import path from "path"; //增加
+const app = express();
+
+// set view engine
+app.set('view engine' , 'ejs');
+app.use(express.static(path.resolve('./public'))) //增加
+
+
+
+// router
+app.get('/',(req,res)=>{
+    res.render('home')  //改了
+})
+
+app.get('/about',(req,res)=>{
+    res.render('about')  //改了
+})
+
+app.get('/register',(req,res)=>{
+    res.render('register')  //改了
+})
+
+app.get('/login', (req,res)=>{
+    res.render('login')  //改了
+})
+
+app.get('/blog',(req,res)=>{
+    res.render('blog')  //改了
+})
+
+
+app.listen(3000,()=>{
+    console.log('3000')
+})
+
+
+```
+
+2. views/abouts.ejs  
+```
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>About us - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9"> //不要../public
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+...
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script> //不要../public
+```  
+3. views/blogs.ejs  
+```
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>About us - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9"> //不要../public
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+...
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script> //不要../public
+
+```  
+4. views/home.ejs  
+```
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>About us - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9"> //不要../public
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+...
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script> //不要../public
+```  
+5. views/login.ejs  
+```
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>About us - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9"> //不要../public
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+...
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script> //不要../public
+```  
+6. views/register.ejs  
+```
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>About us - Brand</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56"> //不要../public
+    <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9"> //不要../public
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+...
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/clean-blog.js?h=44b1c6e85af97fda0fedbb834b3ff3f8"></script> //不要../public
+```
+
+---   
+

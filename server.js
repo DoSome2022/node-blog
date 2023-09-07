@@ -1,29 +1,32 @@
 import express from "express";
+import path from "path";
 const app = express();
 
 // set view engine
 app.set('view engine' , 'ejs');
+app.use(express.static(path.resolve('./public')))
+
 
 
 // router
 app.get('/',(req,res)=>{
-    res.send('home')
+    res.render('home')
 })
 
 app.get('/about',(req,res)=>{
-    res.send('about')
+    res.render('about')
 })
 
 app.get('/register',(req,res)=>{
-    res.send('register')
+    res.render('register')
 })
 
 app.get('/login', (req,res)=>{
-    res.send('login')
+    res.render('login')
 })
 
 app.get('/blog',(req,res)=>{
-    res.send('blog')
+    res.render('blog')
 })
 
 
