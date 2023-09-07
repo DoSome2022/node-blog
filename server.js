@@ -1,10 +1,25 @@
 import express from "express";
 import path from "path";
+import mongoose from "mongoose";
+
+
 const app = express();
 
 // set view engine
 app.set('view engine' , 'ejs');
 app.use(express.static(path.resolve('./public')))
+
+
+// connect mongoose
+const connect = async () =>{
+    try {
+        await mongoose.connect('mongodb://localhost/blog')
+        console.log(' db is connect ')
+    } catch (error) {
+        console.log (error)
+    }
+
+}
 
 
 
@@ -31,6 +46,7 @@ app.get('/blog',(req,res)=>{
 
 
 app.listen(3000,()=>{
+    connect();
     console.log('3000')
 })
 

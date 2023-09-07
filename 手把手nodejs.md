@@ -9,6 +9,7 @@
 - 指南（七）- 494  
 - 指南（八） - 864  
 - 指南（九）- 1002  
+- 指南（十） - 1100  
 
 
 
@@ -1095,4 +1096,114 @@ app.listen(3000,()=>{
 </nav>
 ```
 
+---
+
+## 指南（十） - 1100
+
+要做的事：
+- 安裝 mongoose  及 nodemon
+- 建立 model  
+
+---
+
+### 安裝 mongoose  
+
+1. 在終端機  
+```
+ npm install mongoose@6.11.1 nodemon
+```
+2. ./ package.json 
+```
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "node -v 16.20.1",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"  //  加了 
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^6.11.1",
+    "nodemon": "^3.0.1"
+  }
+}
+
+```
+---
+
+### 建立 model  
+
+1. 在目錄新創名叫models的文件夾，在models內，創建Blog.js
+```
+├── models
+│   └── Blog.js
+├── node_modules
+├── public
+├── server.js
+├── views
+├── package-lock.json
+├── package.json
+
+```
+2. models/Blog.js
+```
+import mongoose from "mongoose";
+
+const BlogSchame = new mongoose.Schema({
+
+    title:{
+        type: String,
+    },
+    description:{
+        type: String,
+    },
+},{timestamps:true})
+
+const Blog = mongoose.models.Blog || mongoose.model("Blogs", BlogSchame);
+
+export default Blog
+```
+
+3.  ./server.js
+```
+import express from "express";
+import path from "path";
+import mongoose from "mongoose"; //加了
+
+
+const app = express();
+
+// set view engine
+app.set('view engine' , 'ejs');
+app.use(express.static(path.resolve('./public')))
+
+
+// connect mongoose   //加了
+const connect = async () =>{  //加了
+    try {   //加了
+        await mongoose.connect('mongodb://localhost/blog')  //加了
+        console.log(' db is connect ')  //加了
+    } catch (error) {   //加了
+        console.log (error)  //加了
+    }   //加了
+
+}   //加了
+
+...
+
+app.listen(3000,()=>{
+    connect();  //加了
+    console.log('3000')
+})
+
+
+
+```
 ---
