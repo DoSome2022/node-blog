@@ -497,6 +497,7 @@ register
 
 public裹的assets在 github 到拿資源 
 
+https://github.com/DoSome2022/node-blog/pull/new/part7
 ---
 
 要做的事:  
