@@ -13,6 +13,7 @@
 - 指南（十一） - 1211  
 - 指南（十二）- 1293  
 - 指南（十三）- 1373  
+- 指南（十四）- 1403  
 
 
 
@@ -1399,3 +1400,39 @@ app.get('/Blog',async(req,res)=>{
 會出現以下為成功：
 <img src="../Blog/blogimg/get DB .png">
 ---
+
+## 指南（十四）- 1403  
+
+要做的事：  
+- 用put api 修改 db  data  
+
+
+### 用put api 修改 db  data  
+1. ./server.js  
+```
+
+...
+
+app.put('/EditBlog/:id', async (req,res)=>{
+    try {
+    const updatedblog = await Blog.findByIdAndUpdate(req.params.id,{
+        $set:req.body,
+    },{new:true})
+
+    res.status(200).json(updatedblog)
+
+    } catch (error) {
+        res.status(404).json(error)
+    }
+
+})
+
+...
+
+
+```
+以下為成功畫面：
+<img src="../Blog/blogimg/update db data .png">
+
+---
+

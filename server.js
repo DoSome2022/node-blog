@@ -73,9 +73,21 @@ app.post('/BlogPostAdd', async (req,res)=>{
     } catch (error) {
         res.status(404).json(error)
     }
-
-
    
+})
+
+app.put('/EditBlog/:id', async (req,res)=>{
+    try {
+    const updatedblog = await Blog.findByIdAndUpdate(req.params.id,{
+        $set:req.body,
+    },{new:true})
+
+    res.status(200).json(updatedblog)
+
+    } catch (error) {
+        res.status(404).json(error)
+    }
+
 })
 
 
