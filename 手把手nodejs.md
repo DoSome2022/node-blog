@@ -1776,6 +1776,9 @@ app.delete('/DelBlog/:id',async(req,res)=>{
 ---
 ## 指南（十七）- 1777  
 
+(form 的 css在 public/assets/bootstrap/css/bootstrap.main.form.css)
+請到github自行下載
+
 要做的事:
 
 - 建立form  
