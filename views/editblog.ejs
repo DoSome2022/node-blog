@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Edit Blog</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.form.css?h=025df1ec88740cad5ff14bb3380da6dd">
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+</head>
+
+<body>
+    <%- include('partials/nav.ejs')  %>
+    <section class="position-relative py-4 py-xl-5">
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4"></h2>
+                            <form method="post">
+                                <%- include('partials/form.ejs')  %>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs')  %>
+</body>
+
+</html>
