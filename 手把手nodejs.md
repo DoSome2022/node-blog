@@ -12,6 +12,8 @@
 - 指南（十） - 1100  
 - 指南（十一） - 1211  
 - 指南（十二）- 1293  
+- 指南（十三）- 1373  
+
 
 
 
@@ -1369,4 +1371,31 @@ app.listen(3000,()=>{
 會出現以下為成功：
 <img src="../Blog/blogimg/data in db.png">
 
+---
+## 指南（十三）- 1373  
+
+要做的事：
+- 用Get api 拿 db data  
+
+### 用Get api 拿 db data  
+
+1. ./server.js  
+```
+...
+
+app.get('/Blog',async(req,res)=>{
+    try {
+    const getBlogs = await Blog.find();
+    res.status(200).json(getBlogs) 
+    } catch (error) {
+    res.status(404).json(error)
+    }
+
+})
+
+...
+
+```
+會出現以下為成功：
+<img src="../Blog/blogimg/get DB .png">
 ---

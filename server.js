@@ -43,8 +43,14 @@ app.get('/login', (req,res)=>{
     res.render('login')
 })
 
-app.get('/blog',(req,res)=>{
-    res.render('blog')
+app.get('/Blog',async(req,res)=>{
+    try {
+    const getBlogs = await Blog.find();
+    res.status(200).json(getBlogs) 
+    } catch (error) {
+    res.status(404).json(error)
+    }
+
 })
 
 app.post('/BlogPostAdd', async (req,res)=>{
