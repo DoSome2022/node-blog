@@ -10,6 +10,7 @@
 - 指南（八） - 864  
 - 指南（九）- 1002  
 - 指南（十） - 1100  
+- 指南（十一） - 1211
 
 
 
@@ -1202,6 +1203,87 @@ app.listen(3000,()=>{
     connect();  //加了
     console.log('3000')
 })
+
+
+
+```
+---
+
+## 指南（十一） - 1211  
+
+要做的事:
+- 為blog增加 post api 
+
+---
+
+### 為blog增加 post api 
+
+1. server.js  
+```
+import express from "express";
+import path from "path";
+import mongoose from "mongoose";
+
+
+const app = express();
+
+app.use(express.json()); //加了
+
+
+// set view engine
+app.set('view engine' , 'ejs');
+app.use(express.static(path.resolve('./public')))
+
+
+// connect mongoose
+const connect = async () =>{
+    try {
+        await mongoose.connect('mongodb://localhost/blog')
+        console.log(' db is connect ')
+    } catch (error) {
+        console.log (error)
+    }
+
+}
+
+
+
+// router
+app.get('/',(req,res)=>{
+    res.render('home')
+})
+
+app.get('/about',(req,res)=>{
+    res.render('about')
+})
+
+app.get('/register',(req,res)=>{
+    res.render('register')
+})
+
+app.get('/login', (req,res)=>{
+    res.render('login')
+})
+
+app.get('/blog',(req,res)=>{
+    res.render('blog')
+})
+
+app.post('/BlogPostAdd',(req,res)=>{   //加了
+    const {title, description }= req.body;  //加了
+    
+
+    console.log('title : ',title , " description : ", description)   //加了
+
+    res.status(200).json({title ,  description})   //加了
+})  //加了
+
+
+app.listen(3000,()=>{
+    connect();
+    console.log('3000')
+})
+
 
 
 

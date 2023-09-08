@@ -5,6 +5,9 @@ import mongoose from "mongoose";
 
 const app = express();
 
+app.use(express.json());
+
+
 // set view engine
 app.set('view engine' , 'ejs');
 app.use(express.static(path.resolve('./public')))
@@ -42,6 +45,15 @@ app.get('/login', (req,res)=>{
 
 app.get('/blog',(req,res)=>{
     res.render('blog')
+})
+
+app.post('/BlogPostAdd',(req,res)=>{
+    const {title, description }= req.body;
+    
+
+    console.log('title : ',title , " description : ", description)
+
+    res.status(200).json({title ,  description})
 })
 
 
