@@ -90,6 +90,15 @@ app.put('/EditBlog/:id', async (req,res)=>{
 
 })
 
+app.delete('/DelBlog/:id',async(req,res)=>{
+    try {
+        await Blog.findByIdAndDelete(req.params.id)
+        res.status(200).json('del !!')
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
+
 
 app.listen(3000,()=>{
     connect();

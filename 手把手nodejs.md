@@ -14,6 +14,7 @@
 - 指南（十二）- 1293  
 - 指南（十三）- 1373  
 - 指南（十四）- 1403  
+- 指南（十五）- 1439  
 
 
 
@@ -1433,6 +1434,36 @@ app.put('/EditBlog/:id', async (req,res)=>{
 ```
 以下為成功畫面：
 <img src="../Blog/blogimg/update db data .png">
+
+---
+
+## 指南（十五）- 1439  
+
+要做的事：  
+- 用del api 刪除 db data  
+
+###  用del api 刪除 db data
+
+1. ./server.js
+```
+...
+
+app.delete('/DelBlog/:id',async(req,res)=>{
+    try {
+        await Blog.findByIdAndDelete(req.params.id)
+        res.status(200).json('del !!')
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
+...
+
+```
+成功會出以下：
+<img src='../Blog/blogimg/del data.png'>  
+之後再拿Get api:
+<img src='../Blog/blogimg/del after db.png'>  
+是空白的，因為這裹只做一個data  
 
 ---
 
