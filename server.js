@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 import mongoose from "mongoose";
-
+import Blog from './models/Blog.js'
 
 const app = express();
 
@@ -47,13 +47,29 @@ app.get('/blog',(req,res)=>{
     res.render('blog')
 })
 
-app.post('/BlogPostAdd',(req,res)=>{
+app.post('/BlogPostAdd', async (req,res)=>{
     const {title, description }= req.body;
-    
 
     console.log('title : ',title , " description : ", description)
 
-    res.status(200).json({title ,  description})
+    const newBlog = new Blog ({
+
+        title : title,
+        description : description
+    })
+    
+    console.log(newBlog)
+
+    try {
+        const saveBlog = await newBlog.save()
+
+       res.status(200).json(saveBlog)  
+    } catch (error) {
+        res.status(404).json(error)
+    }
+
+
+   
 })
 
 

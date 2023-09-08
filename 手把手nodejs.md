@@ -1289,3 +1289,82 @@ app.listen(3000,()=>{
 
 ```
 ---
+
+## 指南（十二）- 1293  
+
+要做的事：  
+- 把data 傳入 DB  
+
+
+### 把data 傳入 DB  
+
+1. server.js  
+```
+
+import express from "express";
+import path from "path";
+import mongoose from "mongoose";
+import Blog from './models/Blog.js'  //加了
+
+const app = express();
+
+app.use(express.json());
+
+
+// set view engine
+app.set('view engine' , 'ejs');
+app.use(express.static(path.resolve('./public')))
+
+
+// connect mongoose
+const connect = async () =>{
+    try {
+        await mongoose.connect('mongodb://localhost/blog')
+        console.log(' db is connect ')
+    } catch (error) {
+        console.log (error)
+    }
+
+}
+
+
+
+...
+
+app.post('/BlogPostAdd', async (req,res)=>{  //改了
+    const {title, description }= req.body;
+
+    console.log('title : ',title , " description : ", description)
+
+    const newBlog = new Blog ({   //加了
+
+        title : title,     //加了
+        description : description    //加了
+    })   //加了
+    
+    console.log(newBlog)   //加了
+
+    try {  //加了
+        const saveBlog = await newBlog.save()   //加了
+
+       res.status(200).json(saveBlog)  //加了
+    } catch (error) {     //加了
+        res.status(404).json(error)   //加了
+    }
+
+
+   
+})
+
+
+app.listen(3000,()=>{
+    connect();
+    console.log('3000')
+})
+
+
+```
+會出現以下為成功：
+<img src="../Blog/blogimg/data in db.png">
+
+---
