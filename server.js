@@ -53,6 +53,16 @@ app.get('/Blog',async(req,res)=>{
 
 })
 
+app.get('/AddBlog',(req,res)=>{
+    res.render('addblog')
+})
+
+app.get('/EditBlog',(req,res)=>{
+    res.render('editblog')
+})
+
+
+
 app.post('/BlogPostAdd', async (req,res)=>{
     const {title, description }= req.body;
 

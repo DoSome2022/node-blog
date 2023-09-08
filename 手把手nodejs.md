@@ -15,10 +15,9 @@
 - 指南（十三）- 1373  
 - 指南（十四）- 1403  
 - 指南（十五）- 1439  
-- 指南（十六）- 1470  
-
-
-
+- 指南（十六）- 1470    
+- 指南（十七）- 1777    
+- 指南（十八）- 1879
 
 
 ---------
@@ -1872,6 +1871,167 @@ app.delete('/DelBlog/:id',async(req,res)=>{
 
 </html>
 
+```
+
+---
+
+## 指南（十八）- 1879
+
+要做的事：
+- addblog api 和 editblog api
+- 修改 html bug 
+
+
+###  addblog api 和 editblog api
+
+1. server.js
+
+```
+....
+
+app.get('/AddBlog',(req,res)=>{
+    res.render('addblog')
+})
+
+app.get('/EditBlog',(req,res)=>{
+    res.render('editblog')
+})
+
+
+
+....
+```
+
+### 修改 html bug 
+全部 的
+```
+<% - include('partials/nav.ejs') %>
+```
+改掉為 
+```
+<%- include('partials/nav.ejs') %>
+```
+
+這是ejs 格式錯
+1.  views/about.ejs
+```
+<%- include('partials/nav.ejs') %>
+...
+
+<%- include('partials/foot.ejs') %>
+```
+2.  views/blog.ejs
+```
+<%- include('partials/nav.ejs') %>
+...
+
+<%- include('partials/foot.ejs') %>
+```
+3.  views/home.ejs
+```
+<%- include('partials/nav.ejs') %>
+...
+
+<%- include('partials/foot.ejs') %>
+```
+4.  views/login.ejs
+```
+<%- include('partials/nav.ejs') %>
+...
+
+<%- include('partials/foot.ejs') %>
+```
+5.  views/register.ejs
+```
+<%- include('partials/nav.ejs') %>
+...
+
+<%- include('partials/foot.ejs') %>
+```
+
+6.  views/addblog.ejs
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.form.css?h=025df1ec88740cad5ff14bb3380da6dd">
+
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf"> 
+
+    <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">  //增加
+    <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">  //增加
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  //增加
+</head>
+
+<body>
+    <section class="position-relative py-4 py-xl-5 bg-black "> //改了 多了bg-black 及位置轉了
+    <%- include('partials/nav.ejs') %>   //位置轉了
+    </section>  
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4"></h2>
+                            <form method="post">
+                                <%- include('partials/form.ejs')  %>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs')  %>
+</body>
+
+</html>
+```
+7.  views/editblog.ejs
+```
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Edit Blog</title>
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.form.css?h=025df1ec88740cad5ff14bb3380da6dd">
+
+    <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+
+    <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">
+    <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <section class="position-relative py-4 py-xl-5 bg-black ">
+    <%- include('partials/nav.ejs') %>
+    </section>
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4"></h2>
+                            <form method="post">
+                                <%- include('partials/form.ejs')  %>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs')  %>
+</body>
+
+</html>
 ```
 
 ---
