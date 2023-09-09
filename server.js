@@ -41,9 +41,23 @@ app.get('/register',(req,res)=>{
     res.render('register')
 })
 
+app.post('/register',(req,res)=>{
+    const { email , password } = req.body;
+
+    console.log(req.body)
+})
+
+
 app.get('/login', (req,res)=>{
     res.render('login')
 })
+
+app.post('/login',(req,res)=>{
+    const {email , password} = req.body;
+    console.log(req.body)
+
+})
+
 
 app.get('/Blog',async(req,res)=>{
     // try {

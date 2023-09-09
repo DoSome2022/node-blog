@@ -22,6 +22,8 @@
 - 指南（二十）- 2185  
 - 指南（二十一）-2243  
 - 指南（二十二）- 2323
+- 指南（二十三）- 2450  
+- 指南（二十四）- 2610
 
 
 ---------
@@ -2602,6 +2604,92 @@ app.put('/EditBlog/:id', async (req,res)=>{
     <%- include('partials/foot.ejs')  %>
 </body>
 
+
+```
+
+---
+## 指南（二十四）- 2610  
+要做的事：
+- post register api and post login api 
+- 在login 頁面 和 register 頁面 輸入 資料
+
+### post register api and post login api
+
+1. ./server.js
+```
+
+....
+app.get('/register',(req,res)=>{
+    res.render('register')
+})
+
+
+//增加了post 
+app.post('/register',(req,res)=>{
+    const { email , password } = req.body;
+
+    console.log(req.body)
+})
+
+
+app.get('/login', (req,res)=>{
+    res.render('login')
+})
+
+//增加了post
+app.post('/login',(req,res)=>{
+    const {email , password} = req.body;
+    console.log(req.body)
+
+})
+
+
+...
+
+```
+
+---
+
+###  在login 頁面 和 register 頁面 輸入 資料
+
+1. views/login.ejs  
+```
+...
+
+                            <form class="text-center" method="post" action="/login" >  //增加了 action
+                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs') %>
+    ...
+
+```
+
+2. views/register.ejs  
+```
+
+....
+                            <form class="text-center" method="post"  action="/register"> //加了action
+                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">register</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs') %>
+
+...
 
 ```
 
