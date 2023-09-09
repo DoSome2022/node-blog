@@ -19,8 +19,7 @@
             <div class="row">
                 <div class="col-md-10 col-lg-8 mx-auto position-relative">
                     <div class="post-heading">
-                        <h1>Man must explore, and this is exploration at its greatest</h1>
-                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2><span class="meta">Posted by&nbsp;<a href="#">Start Bootstrap</a>&nbsp;on August 24, 2018</span>
+
                     </div>
                 </div>
             </div>
@@ -36,7 +35,7 @@
               <h4 class="card-title"><%= post.title %></h4>
              
               <div class="card-text mb-2"><%=  post.description %></div>
-              <a href="" class="btn btn-primary">Read More</a>
+              <a href="/Blog/<%= post.id  %>" class="btn btn-primary">Read More</a>
               <a href="" class="btn btn-info">Edit</a>
               <form action="/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-danger">Delete</button>

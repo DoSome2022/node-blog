@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blog</title>
+
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+  <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">
+  <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <%- include('partials/nav.ejs') %>
+    <header class="masthead" style="background-image:url('/assets/img/post-bg.jpg?h=9b3eae5bf913af77d61c0390cba13bf5');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+  <div class="container">
+    <h1 class="mb-1"><%= Ablog.title %></h1>
+    <div class="text-muted mb-2">
+      <%= Ablog.createdAt.toLocaleDateString() %>
+    </div>
+    <a href="/Blog" class="btn btn-secondary">All Post</a>
+    <a href="" class="btn btn-info">Edit</a>
+
+
+  </div>
+
+  <%- include('partials/foot.ejs') %>
+</body>
+</html>

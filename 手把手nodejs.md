@@ -21,6 +21,7 @@
 - 指南（十九）- 2039  
 - 指南（二十）- 2185  
 - 指南（二十一）-2243  
+- 指南（二十二）- 2323
 
 
 ---------
@@ -2320,3 +2321,128 @@ app.delete('/DelBlog/:id',async(req,res)=>{
 ---
 
 
+## 指南（二十二）- 2323
+要做的事：
+- 建立單獨post頁面  
+- 建立單獨post api  
+
+### 建立單獨post頁面  
+在views 開Ablog.ejs 
+
+1. views/Ablog.ejs  
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blog</title>
+
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+  <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">
+  <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <%- include('partials/nav.ejs') %>
+    <header class="masthead" style="background-image:url('/assets/img/post-bg.jpg?h=9b3eae5bf913af77d61c0390cba13bf5');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+  <div class="container">
+    <h1 class="mb-1"><%= Ablog.title %></h1>
+    <div class="text-muted mb-2">
+      <%= Ablog.createdAt.toLocaleDateString() %>
+    </div>
+    <a href="/Blog" class="btn btn-secondary">All Post</a>
+    <a href="" class="btn btn-info">Edit</a>
+
+
+  </div>
+
+  <%- include('partials/foot.ejs') %>
+</body>
+</html>
+```
+
+
+----
+
+
+### 建立單獨post api  
+
+1. ./server.js
+```
+...
+
+app.get('/Blog',async(req,res)=>{
+    // try {
+    // const getBlogs = await Blog.find();
+    // res.status(200).json(getBlogs) 
+    // } catch (error) {
+    // res.status(404).json(error)
+    // }
+    const getposts = await Blog.find();
+
+    res.render('blog' , {Posts: getposts})
+
+})
+
+//增加 以下
+app.get('/Blog/:id', async (req,res)=>{
+    const getonepost = await Blog.findById(req.params.id)
+    res.render('Ablog',{Ablog:getonepost})
+})
+
+// 增加 以上
+
+app.get('/AddBlog',(req,res)=>{
+    res.render('addblog')
+})
+
+...
+
+
+```
+
+
+2. views/blog.ejs  
+
+```
+...
+
+    <div class="container">
+        <h1 class="mb-4">Blog </h1>
+        <a href="/addblog" class="btn btn-success">New Blog</a>
+    
+        <% Posts.forEach(post => { %>
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4 class="card-title"><%= post.title %></h4>
+             
+              <div class="card-text mb-2"><%=  post.description %></div>
+              <a href="/Blog/<%= post.id  %>" class="btn btn-primary">Read More</a>   //加了
+              <a href="" class="btn btn-info">Edit</a>
+              <form action="/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+
+...
+
+```
+
+---
