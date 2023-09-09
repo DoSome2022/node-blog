@@ -20,6 +20,7 @@
 - 指南（十八）- 1879  
 - 指南（十九）- 2039  
 - 指南（二十）- 2185  
+- 指南（二十一）-2243  
 
 
 ---------
@@ -2239,3 +2240,83 @@ app.get('/Blog',async(req,res)=>{
 ```
 
 ----
+
+## 指南（二+一）-2243  
+要做的事:
+- 令刪除接鍵運行
+
+###  令刪除接鍵運行  
+
+在終端機：
+
+```
+npm install method-override
+```
+
+1. server.js
+```
+import express from "express";
+import path from "path";
+import mongoose from "mongoose";
+import Blog from './models/Blog.js'
+import methodOverride from 'method-override';  //增加
+
+const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))
+
+// set view engine
+app.set('view engine' , 'ejs');
+app.use(express.static(path.resolve('./public')));
+app.use(methodOverride('_method')); //增加
+
+
+
+....
+
+
+app.delete('/DelBlog/:id',async(req,res)=>{
+    try {
+        await Blog.findByIdAndDelete(req.params.id)
+       // res.status(200).json('del !!')
+       res.redirect('/Blog') //增加
+    } catch (error) {
+        res.status(404).json(error)
+    }
+})
+
+...
+
+```
+2. blog.ejs
+```
+...
+    <div class="container">
+        <h1 class="mb-4">Blog </h1>
+        <a href="/addblog" class="btn btn-success">New Blog</a>
+    
+        <% Posts.forEach(post => { %>
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4 class="card-title"><%= post.title %></h4>
+             
+              <div class="card-text mb-2"><%=  post.description %></div>
+              <a href="" class="btn btn-primary">Read More</a>
+              <a href="" class="btn btn-info">Edit</a>
+              <form action="/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline"> //加了 
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+    <%- include('partials/foot.ejs') %>
+</body>
+
+</html>
+```
+
+---
+
+

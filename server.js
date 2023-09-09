@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import mongoose from "mongoose";
 import Blog from './models/Blog.js'
+import methodOverride from 'method-override';
 
 const app = express();
 
@@ -10,7 +11,8 @@ app.use(express.urlencoded({ extended: false }))
 
 // set view engine
 app.set('view engine' , 'ejs');
-app.use(express.static(path.resolve('./public')))
+app.use(express.static(path.resolve('./public')));
+app.use(methodOverride('_method'));
 
 
 // connect mongoose
@@ -107,7 +109,8 @@ app.put('/EditBlog/:id', async (req,res)=>{
 app.delete('/DelBlog/:id',async(req,res)=>{
     try {
         await Blog.findByIdAndDelete(req.params.id)
-        res.status(200).json('del !!')
+       // res.status(200).json('del !!')
+       res.redirect('/Blog')
     } catch (error) {
         res.status(404).json(error)
     }
