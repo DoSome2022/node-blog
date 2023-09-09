@@ -36,7 +36,7 @@
              
               <div class="card-text mb-2"><%=  post.description %></div>
               <a href="/Blog/<%= post.id  %>" class="btn btn-primary">Read More</a>
-              <a href="" class="btn btn-info">Edit</a>
+              <a href="/EditBlog/<%= post.id  %>" class="btn btn-info">Edit</a>
               <form action="/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>

@@ -28,11 +28,16 @@
     </header>
   <div class="container">
     <h1 class="mb-1"><%= Ablog.title %></h1>
+
+    <p>
+      <%= Ablog.description %>
+
+    </p>
     <div class="text-muted mb-2">
       <%= Ablog.createdAt.toLocaleDateString() %>
     </div>
     <a href="/Blog" class="btn btn-secondary">All Post</a>
-    <a href="" class="btn btn-info">Edit</a>
+    <a href="/EditBlog/<%= Ablog.id  %>" class="btn btn-info">Edit</a>
 
 
   </div>

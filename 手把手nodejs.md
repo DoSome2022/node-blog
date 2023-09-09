@@ -2446,3 +2446,163 @@ app.get('/AddBlog',(req,res)=>{
 ```
 
 ---
+
+## 指南（二十三）- 2450  
+要做的事:
+
+- 連接edit form 頁面  
+- 令edit form 運作  
+
+###  連接edit form 頁面
+
+1. ./ server.js
+
+```
+....
+app.get('/EditBlog/:id',async(req,res)=>{
+const getonepost = await Blog.findById(req.params.id) //加了
+    res.render('editblog',{Ablog:getonepost})  //加了
+})
+
+....
+
+app.put('/EditBlog/:id', async (req,res)=>{
+    try {
+    const getonepost = await Blog.findById(req.params.id);  //加了
+    const updatedblog = await Blog.findByIdAndUpdate(req.params.id,{
+        $set:req.body,
+    },{new:true})
+
+    //res.status(200).json(updatedblog)
+    res.redirect(`/Blog/${getonepost._id}`)  //加了
+
+
+    } catch (error) {
+        res.status(404).json(error)
+    }
+
+})
+
+....
+```
+在partials開 edit_form.ejs
+2. views/partials/edit_form.ejs
+```
+<div class="mb-3"><input class="form-control" type="text" id="name-2" name="title" placeholder="Title" value="<%= Ablog.title %>" ></div>
+<div class="mb-3"></div>
+<div class="mb-3"><textarea class="form-control" id="message-2" name="description" rows="6" placeholder="Description"><%= Ablog.description %></textarea></div>
+<div><button class="btn btn-primary d-block w-100" type="submit">Send </button></div>
+
+```
+
+3. views/Ablog.ejs
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blog</title>
+
+  <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css?h=f9f7d0157de2a90e383c7d0678aa83cf">
+  <link rel="stylesheet" href="/assets/css/Lora.css?h=4d50cd90998eb6786f5c7cdd6ada1e56">
+  <link rel="stylesheet" href="/assets/css/Open%20Sans.css?h=9a60f73863cdefa128874a76ba99deb9">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <%- include('partials/nav.ejs') %>
+    <header class="masthead" style="background-image:url('/assets/img/post-bg.jpg?h=9b3eae5bf913af77d61c0390cba13bf5');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+  <div class="container">
+    <h1 class="mb-1"><%= Ablog.title %></h1>
+
+    <p>
+      <%= Ablog.description %>
+
+    </p>
+    <div class="text-muted mb-2">
+      <%= Ablog.createdAt.toLocaleDateString() %>
+    </div>
+    <a href="/Blog" class="btn btn-secondary">All Post</a>
+    <a href="/EditBlog/<%= Ablog.id  %>" class="btn btn-info">Edit</a> //加了
+
+
+  </div>
+
+  <%- include('partials/foot.ejs') %>
+</body>
+</html>
+
+
+```
+
+4. views/blog.ejs  
+```
+...
+        <% Posts.forEach(post => { %>
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4 class="card-title"><%= post.title %></h4>
+             
+              <div class="card-text mb-2"><%=  post.description %></div>
+              <a href="/Blog/<%= post.id  %>" class="btn btn-primary">Read More</a>
+              <a href="/EditBlog/<%= post.id  %>" class="btn btn-info">Edit</a>  //增加
+              <form action="/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+    <%- include('partials/foot.ejs') %>
+
+...
+
+```
+---
+
+
+### 令edit form 運作 
+
+1. views/editblog.ejs
+```
+...
+
+        <%- include('partials/nav.ejs')  %>
+</section>
+    
+        
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4"></h2>
+                            <form method="post"  action="/EditBlog/<%= Ablog.id %>?_method=PUT"> //加了 action
+                                <%- include('partials/edit_form.ejs')  %>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs')  %>
+</body>
+
+
+```
+
+---

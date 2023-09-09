@@ -69,8 +69,9 @@ app.get('/AddBlog',(req,res)=>{
     res.render('addblog')
 })
 
-app.get('/EditBlog',(req,res)=>{
-    res.render('editblog')
+app.get('/EditBlog/:id',async(req,res)=>{
+const getonepost = await Blog.findById(req.params.id)
+    res.render('editblog',{Ablog:getonepost})
 })
 
 
@@ -101,11 +102,14 @@ app.post('/BlogPostAdd', async (req,res)=>{
 
 app.put('/EditBlog/:id', async (req,res)=>{
     try {
+    const getonepost = await Blog.findById(req.params.id);
     const updatedblog = await Blog.findByIdAndUpdate(req.params.id,{
         $set:req.body,
     },{new:true})
 
-    res.status(200).json(updatedblog)
+    //res.status(200).json(updatedblog)
+    res.redirect(`/Blog/${getonepost._id}`)
+
 
     } catch (error) {
         res.status(404).json(error)
