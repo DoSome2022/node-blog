@@ -50,8 +50,9 @@ app.get('/Blog',async(req,res)=>{
     // } catch (error) {
     // res.status(404).json(error)
     // }
+    const getposts = await Blog.find();
 
-    res.render('blog')
+    res.render('blog' , {Posts: getposts})
 
 })
 

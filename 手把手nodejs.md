@@ -19,6 +19,7 @@
 - 指南（十七）- 1777    
 - 指南（十八）- 1879  
 - 指南（十九）- 2039  
+- 指南（二十）- 2185  
 
 
 ---------
@@ -2180,4 +2181,61 @@ app.post('/BlogPostAdd', async (req,res)=>{
 ....
 
 ```
+----
+
+## 指南（二十）- 2185  
+要做的事:
+- 在blog 裹顥示post 
+
+###  在blog 裹顥示post 
+1. .server.js
+```
+app.get('/Blog',async(req,res)=>{
+    // try {
+    // const getBlogs = await Blog.find();
+    // res.status(200).json(getBlogs) 
+    // } catch (error) {
+    // res.status(404).json(error)
+    // }
+    const getposts = await Blog.find(); //增加
+
+    res.render('blog' , {Posts: getposts})  //加了
+
+})
+
+```
+
+2. views/blog.ejs
+
+```
+...
+
+
+    <div class="container">
+        <h1 class="mb-4">Blog </h1>
+        <a href="/addblog" class="btn btn-success">New Blog</a>
+    
+        <% Posts.forEach(post => { %>  //加了
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4 class="card-title"><%= post.title %></h4>  //改了
+             
+              <div class="card-text mb-2"><%=  post.description %></div> //改了
+              <a href="" class="btn btn-primary">Read More</a>
+              <a href="" class="btn btn-info">Edit</a>
+              <form action="" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }) %>  //加了
+      </div>
+    <%- include('partials/foot.ejs') %>
+</body>
+
+</html>
+
+
+```
+
 ----

@@ -30,12 +30,12 @@
         <h1 class="mb-4">Blog </h1>
         <a href="/addblog" class="btn btn-success">New Blog</a>
     
-        
+        <% Posts.forEach(post => { %>
           <div class="card mt-4">
             <div class="card-body">
-              <h4 class="card-title">title</h4>
+              <h4 class="card-title"><%= post.title %></h4>
              
-              <div class="card-text mb-2">description</div>
+              <div class="card-text mb-2"><%=  post.description %></div>
               <a href="" class="btn btn-primary">Read More</a>
               <a href="" class="btn btn-info">Edit</a>
               <form action="" method="POST" class="d-inline">
@@ -43,6 +43,7 @@
               </form>
             </div>
           </div>
+          <% }) %>
       </div>
     <%- include('partials/foot.ejs') %>
 </body>
