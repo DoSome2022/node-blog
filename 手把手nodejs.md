@@ -17,7 +17,8 @@
 - 指南（十五）- 1439  
 - 指南（十六）- 1470    
 - 指南（十七）- 1777    
-- 指南（十八）- 1879
+- 指南（十八）- 1879  
+- 指南（十九）- 2039  
 
 
 ---------
@@ -2035,3 +2036,148 @@ app.get('/EditBlog',(req,res)=>{
 ```
 
 ---
+
+## 指南（十九）- 2039
+要做的事：
+- 建立addpost頁面 連結 
+- 在addpost 頁面輸入資料
+
+----
+###  建立addpost頁面
+
+1. ./ server.js  
+```
+
+....
+app.get('/Blog',async(req,res)=>{
+    // try {
+    // const getBlogs = await Blog.find();
+    // res.status(200).json(getBlogs) 
+    // } catch (error) {
+    // res.status(404).json(error)
+    // }
+
+    res.render('blog')  //增加 為了進入頁面
+
+})
+
+....
+```
+
+2. views/blog.ejs
+```
+....
+<body>
+    <%- include('partials/nav.ejs') %>
+    <header class="masthead" style="background-image:url('/assets/img/post-bg.jpg?h=9b3eae5bf913af77d61c0390cba13bf5');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading">
+                        <h1>Man must explore, and this is exploration at its greatest</h1>
+                        <h2 class="subheading">Problems look mighty small from 150 miles up</h2><span class="meta">Posted by&nbsp;<a href="#">Start Bootstrap</a>&nbsp;on August 24, 2018</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+// header 以上沒有改變
+//修改了以下
+
+    <div class="container">
+        <h1 class="mb-4">Blog </h1>
+        <a href="/addblog" class="btn btn-success">New Blog</a>
+    
+        
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4 class="card-title">title</h4>
+             
+              <div class="card-text mb-2">description</div>
+              <a href="" class="btn btn-primary">Read More</a>
+              <a href="" class="btn btn-info">Edit</a>
+              <form action="" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+      </div>
+    <%- include('partials/foot.ejs') %>
+</body>
+
+</html>
+
+```
+
+---
+
+###  在addpost 頁面輸入資料
+
+1. addblog.ejs
+```
+...
+
+    <%- include('partials/nav.ejs') %>
+    </section>
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4"></h2>
+                            <form method="post" action="/BlogPostAdd"> // 增加了action
+                                <%- include('partials/form.ejs')  %>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs')  %>
+
+...
+
+```
+
+2. ./server.js  
+
+```
+...
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }))  //增加
+
+//如果不加  title, description 就會出 undefined
+
+....
+
+
+app.post('/BlogPostAdd', async (req,res)=>{
+    const {title, description }= req.body;
+
+    console.log('title : ',title , " description : ", description)
+
+    const newBlog = new Blog ({
+
+        title : title,
+        description : description
+    })
+    
+    console.log(newBlog)
+
+     try {
+        const saveBlog = await newBlog.save()
+
+   // res.status(200).json(saveBlog)  
+    res.redirect('/Blog') //增加
+    } catch (error) {
+        res.status(404).json(error)
+    }
+   
+})
+....
+
+```
+----

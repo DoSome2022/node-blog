@@ -6,7 +6,7 @@ import Blog from './models/Blog.js'
 const app = express();
 
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: false }))
 
 // set view engine
 app.set('view engine' , 'ejs');
@@ -44,12 +44,14 @@ app.get('/login', (req,res)=>{
 })
 
 app.get('/Blog',async(req,res)=>{
-    try {
-    const getBlogs = await Blog.find();
-    res.status(200).json(getBlogs) 
-    } catch (error) {
-    res.status(404).json(error)
-    }
+    // try {
+    // const getBlogs = await Blog.find();
+    // res.status(200).json(getBlogs) 
+    // } catch (error) {
+    // res.status(404).json(error)
+    // }
+
+    res.render('blog')
 
 })
 
@@ -76,10 +78,11 @@ app.post('/BlogPostAdd', async (req,res)=>{
     
     console.log(newBlog)
 
-    try {
+     try {
         const saveBlog = await newBlog.save()
 
-       res.status(200).json(saveBlog)  
+   // res.status(200).json(saveBlog)  
+    res.redirect('/Blog')
     } catch (error) {
         res.status(404).json(error)
     }
