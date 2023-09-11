@@ -3009,3 +3009,23 @@ try {
 ```
 
 ----
+
+## 指南（二十九）- 3013  
+要做的事:  
+- 做logout function && api
+
+
+---
+
+1. ./server.js  
+
+```
+app.get('/logout',(req,res)=>{
+    res.clearCookie('access_token')
+    res.redirect('/')
+})
+
+
+```
+
+---

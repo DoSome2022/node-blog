@@ -117,9 +117,13 @@ try {
     res.status(404).json(error)
 }
 
-
-
 })
+
+app.get('/logout',(req,res)=>{
+    res.clearCookie('access_token')
+    res.redirect('/')
+})
+
 
 
 app.get('/Blog',async(req,res)=>{
