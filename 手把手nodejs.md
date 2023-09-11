@@ -26,6 +26,7 @@
 - 指南（二十四）- 2610  
 - 指南（二十五）- 2698  
 - 指南（二十六）- 2732  
+- 指南（二十七）- 2798
 
 
 
@@ -2790,6 +2791,127 @@ try {
 })
 
 ...
+
+```
+
+---
+
+## 指南（二十七）- 2798  
+
+要做的事： 
+- 安裝 jwt  
+- pw 加密  
+- 加入redirect 在 register & login
+
+---
+
+1. 在終端:
+```
+npm install jsonwebtoken bcrypt
+
+```
+
+pw 加密
+2. ./server.js
+```
+import bcrypt from 'bcrypt';  //增加
+
+....
+
+app.post('/register', async(req,res)=>{
+    const { email , password } = req.body;
+    const saltRounds = 10;  //增加
+    const salt = bcrypt.genSaltSync(saltRounds); //增加
+    const hash = bcrypt.hashSync(password, salt) //增加
+    console.log(req.body)
+
+try {
+    const newUser = new  User({
+        email : email,
+
+        password : hash  //改了
+
+    })
+
+    const saveUser = await newUser.save()
+
+    // res.status(200).json(saveUser);
+
+    res.redirect('/login') //增加
+
+} catch (error) {
+    res.status(404).json(error)
+}
+
+})
+```
+---
+pw 解密
+
+3. ./server.js
+```
+app.post('/login',async(req,res)=>{
+    const {email , password} = req.body;
+    console.log(req.body)
+try {
+    const user = await User.findOne({email :req.body.email})
+    !user && res.status(404).json("email not found!!");
+
+    // const ipw = await User.findOne({password : req.body.password})
+    const ipw = await bcrypt.compareSync(req.body.password , user.password) //改了
+    !ipw && res.status(404).json("wrong password")
+
+    //res.status(200).json(user.email)
+res.redirect('/')  //增加
+    
+} catch (error) {
+    res.status(404).json(error)
+}
+
+
+
+})
+
+```
+---
+
+加入 jwt 
+
+4. ./server.js  
+```
+import jwt from 'jsonwebtoken'; //增加
+
+...
+
+app.post('/login',async(req,res)=>{
+    const {email , password} = req.body;
+    console.log(req.body)
+try {
+    const user = await User.findOne({email :req.body.email})
+    !user && res.status(404).json("email not found!!");
+
+    // const ipw = await User.findOne({password : req.body.password})
+    const ipw = await bcrypt.compareSync(req.body.password , user.password)
+    !ipw && res.status(404).json("wrong password")
+
+    // res.status(200).json(user.email)
+
+    const token = jwt.sign({id: user._id},"1234") //增加
+    const {password , ...others} = user._doc;  //增加
+
+    res.cookie("access_token",token,{httpOnly: true})  //增加
+
+
+    res.redirect('/') //改了
+    
+} catch (error) {
+    res.status(404).json(error)
+}
+
+
+
+})
+
 
 ```
 

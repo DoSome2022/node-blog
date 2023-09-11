@@ -4,6 +4,8 @@ import mongoose from "mongoose";
 import Blog from './models/Blog.js'
 import methodOverride from 'method-override';
 import User from "./models/User.js";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 
@@ -44,15 +46,24 @@ app.get('/register',(req,res)=>{
 
 app.post('/register', async(req,res)=>{
     const { email , password } = req.body;
-
+    const saltR加ounds = 10;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(password, salt)
     console.log(req.body)
 
 try {
-    const newUser = new  User(req.body)
+    const newUser = new  User({
+        email : email,
+
+        password : hash
+
+    })
 
     const saveUser = await newUser.save()
 
-    res.status(200).json(saveUser);
+    // res.status(200).json(saveUser);
+
+    res.redirect('/login')
 
 } catch (error) {
     res.status(404).json(error)
@@ -72,11 +83,19 @@ try {
     const user = await User.findOne({email :req.body.email})
     !user && res.status(404).json("email not found!!");
 
-    const ipw = await User.findOne({password : req.body.password})
+    // const ipw = await User.findOne({password : req.body.password})
+    const ipw = await bcrypt.compareSync(req.body.password , user.password)
     !ipw && res.status(404).json("wrong password")
 
-    res.status(200).json(user.email)
+    // res.status(200).json(user.email)
 
+    const token = jwt.sign({id: user._id},"1234")
+    const {password , ...others} = user._doc;
+
+    res.cookie("access_token",token,{httpOnly: true})
+
+
+    res.redirect('/')
     
 } catch (error) {
     res.status(404).json(error)
