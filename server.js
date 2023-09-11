@@ -3,6 +3,7 @@ import path from "path";
 import mongoose from "mongoose";
 import Blog from './models/Blog.js'
 import methodOverride from 'method-override';
+import User from "./models/User.js";
 
 const app = express();
 
@@ -46,7 +47,17 @@ app.post('/register', async(req,res)=>{
 
     console.log(req.body)
 
-    
+try {
+    const newUser = new  User(req.body)
+
+    const saveUser = await newUser.save()
+
+    res.status(200).json(saveUser);
+
+} catch (error) {
+    res.status(404).json(error)
+}
+
 })
 
 
@@ -54,9 +65,24 @@ app.get('/login', (req,res)=>{
     res.render('login')
 })
 
-app.post('/login',(req,res)=>{
+app.post('/login',async(req,res)=>{
     const {email , password} = req.body;
     console.log(req.body)
+try {
+    const user = await User.findOne({email :req.body.email})
+    !user && res.status(404).json("email not found!!");
+
+    const ipw = await User.findOne({password : req.body.password})
+    !ipw && res.status(404).json("wrong password")
+
+    res.status(200).json(user.email)
+
+    
+} catch (error) {
+    res.status(404).json(error)
+}
+
+
 
 })
 

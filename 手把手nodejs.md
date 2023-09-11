@@ -25,6 +25,7 @@
 - 指南（二十三）- 2450  
 - 指南（二十四）- 2610  
 - 指南（二十五）- 2698  
+- 指南（二十六）- 2732  
 
 
 
@@ -2725,6 +2726,71 @@ const UserSchame = new mongoose.Schema({
 const User = mongoose.models.User || mongoose.model("Users", UserSchame);
 
 export default User
+```
+
+---
+
+## 指南（二十六）- 2732
+
+要做的事： 
+- 加入 register function  
+- 加入 login function  
+
+### 加入 register function  
+1. ./server.js  
+```
+...
+
+app.post('/register', async(req,res)=>{
+    const { email , password } = req.body;
+
+    console.log(req.body)
+
+try {
+    const newUser = new  User(req.body)
+
+    const saveUser = await newUser.save()
+
+    res.status(200).json(saveUser);
+
+} catch (error) {
+    res.status(404).json(error)
+}
+
+})
+
+
+...
+```
+
+### 加入 login function 
+
+```
+...
+
+app.post('/login',async(req,res)=>{
+    const {email , password} = req.body;
+    console.log(req.body)
+try {
+    const user = await User.findOne({email :req.body.email})
+    !user && res.status(404).json("email not found!!");
+
+    const ipw = await User.findOne({password : req.body.password})
+    !ipw && res.status(404).json("wrong password")
+
+    res.status(200).json("hi!! ",user)
+
+    
+} catch (error) {
+    res.status(404).json(error)
+}
+
+
+
+})
+
+...
+
 ```
 
 ---
