@@ -23,7 +23,9 @@
 - 指南（二十一）-2243  
 - 指南（二十二）- 2323
 - 指南（二十三）- 2450  
-- 指南（二十四）- 2610
+- 指南（二十四）- 2610  
+- 指南（二十五）- 2698  
+
 
 
 ---------
@@ -2691,6 +2693,38 @@ app.post('/login',(req,res)=>{
 
 ...
 
+```
+
+---
+
+## 指南（二十五）- 2698  
+
+要做的事：
+- 建立 User Schema
+
+-----
+
+### 建立 User Schema  
+
+在models文件夾內創建User.js
+
+1. models/User.js
+```
+import mongoose from "mongoose";
+
+const UserSchame = new mongoose.Schema({
+
+    email:{
+        type: String,
+    },
+    password:{
+        type: String,
+    },
+},{timestamps:true})
+
+const User = mongoose.models.User || mongoose.model("Users", UserSchame);
+
+export default User
 ```
 
 ---

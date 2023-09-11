@@ -41,10 +41,12 @@ app.get('/register',(req,res)=>{
     res.render('register')
 })
 
-app.post('/register',(req,res)=>{
+app.post('/register', async(req,res)=>{
     const { email , password } = req.body;
 
     console.log(req.body)
+
+    
 })
 
 
