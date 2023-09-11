@@ -27,7 +27,7 @@
     </header>
     <div class="container">
         <h1 class="mb-4">Blog </h1>
-        <a href="/addblog" class="btn btn-success">New Blog</a>
+        <a href="/blog/addblog" class="btn btn-success">New Blog</a>
     
         <% Posts.forEach(post => { %>
           <div class="card mt-4">
@@ -35,9 +35,9 @@
               <h4 class="card-title"><%= post.title %></h4>
              
               <div class="card-text mb-2"><%=  post.description %></div>
-              <a href="/Blog/<%= post.id  %>" class="btn btn-primary">Read More</a>
-              <a href="/EditBlog/<%= post.id  %>" class="btn btn-info">Edit</a>
-              <form action="/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
+              <a href="/blog/Blog/<%= post.id  %>" class="btn btn-primary">Read More</a>
+              <a href="/blog/EditBlog/<%= post.id  %>" class="btn btn-info">Edit</a>
+              <form action="/blog/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-danger">Delete</button>
               </form>
             </div>

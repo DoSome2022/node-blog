@@ -4,16 +4,16 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/" style="margin-left: 11px;margin-right: 14px;">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="/about">About us</a></li>
-                <li class="nav-item"><a class="nav-link" href="/blog">Blog Post</a></li>
+                <li class="nav-item"><a class="nav-link" href="/blog/blog">Blog Post</a></li>
 
 
                 <% if(user) {  %>
 
-            <li class="nav-item" ><a class="nav-link" href="/logout"> ( logout )</a></li>
+            <li class="nav-item" ><a class="nav-link" href="/user/logout"> ( logout )</a></li>
               <%  }  else {  %>
 
-            <li class="nav-item"><a class="nav-link" href="/register">register</a></li>
-            <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+            <li class="nav-item"><a class="nav-link" href="/user/register">register</a></li>
+            <li class="nav-item"><a class="nav-link" href="/user/login">login</a></li>
 
             <%  } %>
 

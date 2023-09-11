@@ -28,6 +28,8 @@
 - 指南（二十六）- 2732  
 - 指南（二十七）- 2798  
 - 指南（二十八）- 2920  
+- 指南（二十九）- 3013   
+
 
 
 
@@ -3026,6 +3028,472 @@ app.get('/logout',(req,res)=>{
 })
 
 
+```
+
+---
+
+## 指南（三十）第一部完結 - 3035 
+要做的事：
+- MVC  
+- 破碎後，增加404
+
+
+---
+在目錄裹，新創文件夾 分別 config ， controllers , Routes  
+config 裹 開db.js  
+controllers 裹 開Blog.js & User.js
+Routes 裹 開 Blog.js User.js  
+
+1.  ./server.js
+```
+import express from "express";
+import path from "path";
+import methodOverride from 'method-override';
+import cookieParser from 'cookie-parser';
+import connect from './config/db.js';
+const app = express();
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }))
+
+// set view engine
+app.set('view engine' , 'ejs');
+app.use(express.static(path.resolve('./public')));
+app.use(methodOverride('_method'));
+
+
+ app.get('*', async (req,res,next)=>{
+    res.locals.user = req.cookies.access_token
+
+    next()
+ })
+
+// router
+app.get('/',(req,res)=>{
+    res.render('home')
+})
+
+app.get('/about',(req,res)=>{
+    res.render('about')
+})
+
+import BlogRoutes from './Routes/Blog.js'; 
+import UserRoutes from './Routes/User.js';
+
+app.use('/blog',BlogRoutes);
+app.use('/user',UserRoutes)
+
+app.listen(3000,()=>{
+    connect();
+    console.log('3000')
+})
+
+```
+
+2. config/db.js  
+```
+// connect mongoose
+import mongoose from "mongoose"; 
+
+const  connect = async () =>{
+    try {
+        await mongoose.connect('mongodb://localhost/blog')
+        console.log(' db is connect ')
+    } catch (error) {
+        console.log (error)
+    }
+
+}
+
+export default connect
+```
+3. controllers/Blog.js  
+```
+import Blog from '../models/Blog.js';
+
+
+export const  GetBlogs = async (req,res) =>{
+    const getposts = await Blog.find();
+
+    res.render('blog' , {Posts: getposts})
+}
+
+export const GetBlogId = async (req,res)=>{
+    const getonepost = await Blog.findById(req.params.id)
+    res.render('Ablog',{Ablog:getonepost})
+}
+
+export const AddBlog = (req,res) =>{
+    res.render('addblog')
+}
+
+export const EditBlogId = async (req,res) =>{
+    const getonepost = await Blog.findById(req.params.id)
+    res.render('editblog',{Ablog:getonepost})
+}
+
+export const PostBlogPostAdd = async (req,res) =>{
+    const {title, description }= req.body;
+
+    console.log('title : ',title , " description : ", description)
+
+    const newBlog = new Blog ({    // res.render('addblog')
+
+        title : title,
+        description : description
+    })
+    
+    console.log(newBlog)
+
+     try {
+        const saveBlog = await newBlog.save()
+
+   // res.status(200).json(saveBlog)  
+    res.redirect('/blog/Blog')
+    } catch (error) {
+        res.status(404).json(error)
+    }
+   
+}
+
+export const PutEditBlogId = async (req,res)=>{
+    try {
+        const getonepost = await Blog.findById(req.params.id);
+        const updatedblog = await Blog.findByIdAndUpdate(req.params.id,{
+            $set:req.body,
+        },{new:true})
+    
+        //res.status(200).json(updatedblog)
+        res.redirect(`/blog/Blog/${getonepost._id}`)
+    
+    
+        } catch (error) {
+            res.status(404).json(error)
+        }
+    
+}
+
+export const DeleteDelBlogId = async (req,res)=>{
+    try {
+        await Blog.findByIdAndDelete(req.params.id)
+       // res.status(200).json('del !!')
+       res.redirect('/blog/Blog')
+    } catch (error) {
+        res.status(404).json(error)
+    }
+}
+```
+
+4. controllers/User.js
+```
+import User from "../models/User.js";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+
+
+export const  GetRegister = (req,res)=>{
+    res.render('register')
+}
+
+export const GetLogin = (req,res)=>{
+    res.render('login')
+}
+
+export const GetLogout = (req,res) =>{
+    res.clearCookie('access_token')
+    res.redirect('/')
+}
+
+export const PostRegister = async (req,res) =>{
+    const { email , password } = req.body;
+    const saltRounds = 10;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hash = bcrypt.hashSync(password, salt)
+    console.log(req.body)
+
+try {
+    const newUser = new  User({
+        email : email,
+
+        password : hash
+
+    })
+
+    const saveUser = await newUser.save()
+
+    // res.status(200).json(saveUser);
+
+    res.redirect('/user/login')
+
+} catch (error) {
+    res.status(404).json(error)
+}
+}
+
+export const PostLogin = async (req,res) =>{
+    const {email , password} = req.body;
+    console.log(req.body)
+try {
+    const user = await User.findOne({email :req.body.email})
+    !user && res.status(404).json("email not found!!");
+
+    // const ipw = await User.findOne({password : req.body.password})
+    const ipw = bcrypt.compareSync(req.body.password , user.password)
+    !ipw && res.status(404).json("wrong password")
+
+    // res.status(200).json(user.email)
+
+    const token = jwt.sign({id: user._id},"1234")
+    const {password , ...others} = user._doc;
+
+    res.cookie("access_token",token,{httpOnly: true})
+
+    console.log(`cookies:${req.cookies.access_token}`)
+    res.redirect('/')
+    
+} catch (error) {
+    res.status(404).json(error)
+}
+
+}
+```
+5. Routes/Blog.js  
+```
+import express from 'express';
+const Router = express.Router();
+// import Blog from './models/Blog.js'
+import {
+    GetBlogs,
+    GetBlogId,
+    AddBlog,
+    PostBlogPostAdd,
+    PutEditBlogId,
+    DeleteDelBlogId,
+    EditBlogId
+} from '../controllers/Blog.js'
+
+
+
+Router.get('/Blog',GetBlogs)
+Router.get('/Blog/:id',GetBlogId)
+Router.get('/AddBlog',AddBlog)
+Router.get('/EditBlog/:id',EditBlogId)
+Router.post('/BlogPostAdd',PostBlogPostAdd)
+Router.put('/EditBlog/:id',PutEditBlogId)
+Router.delete('/DelBlog/:id',DeleteDelBlogId)
+
+
+
+export default Router
+```
+6. Routes/User.js  
+```
+import express from 'express';
+const Router = express.Router();
+import {
+    GetLogin,
+    GetLogout,
+    GetRegister,
+    PostLogin,
+    PostRegister
+
+} from "../controllers/User.js"
+
+Router.get('/register',GetRegister)
+
+Router.post('/register', PostRegister)
+
+Router.get('/login',GetLogin)
+
+Router.post('/login',PostLogin)
+
+Router.get('/logout',(GetLogout))
+
+
+
+export default Router
+```
+更改api
+
+7. views/partials/nav.ejs
+
+```
+...
+                <li class="nav-item"><a class="nav-link" href="/" style="margin-left: 11px;margin-right: 14px;">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">About us</a></li>
+                <li class="nav-item"><a class="nav-link" href="/blog/blog">Blog Post</a></li>
+
+
+                <% if(user) {  %>
+
+            <li class="nav-item" ><a class="nav-link" href="/user/logout"> ( logout )</a></li>
+              <%  }  else {  %>
+
+            <li class="nav-item"><a class="nav-link" href="/user/register">register</a></li>
+            <li class="nav-item"><a class="nav-link" href="/user/login">login</a></li>
+
+            <%  } %>
+
+...
+```
+8. views/Ablog.ejs
+```
+...
+
+  <div class="container">
+    <h1 class="mb-1"><%= Ablog.title %></h1>
+
+    <p>
+      <%= Ablog.description %>
+
+    </p>
+    <div class="text-muted mb-2">
+      <%= Ablog.createdAt.toLocaleDateString() %>
+    </div>
+    <a href="/blog/Blog" class="btn btn-secondary">All Post</a>
+    <a href="/blog/EditBlog/<%= Ablog.id  %>" class="btn btn-info">Edit</a>
+
+
+  </div>
+
+  <%- include('partials/foot.ejs') %>
+</body>
+</html>
+```
+
+9. views/addblog.ejs
+```
+...
+    <%- include('partials/nav.ejs') %>
+    </section>
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4"></h2>
+                            <form method="post" action="/blog/BlogPostAdd"  >
+                                <%- include('partials/form.ejs')  %>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs')  %>
+
+...
+```
+10. views/blog.ejs
+```
+...
+    <%- include('partials/nav.ejs') %>
+    <header class="masthead" style="background-image:url('/assets/img/post-bg.jpg?h=9b3eae5bf913af77d61c0390cba13bf5');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-lg-8 mx-auto position-relative">
+                    <div class="post-heading">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <h1 class="mb-4">Blog </h1>
+        <a href="/blog/addblog" class="btn btn-success">New Blog</a>
+    
+        <% Posts.forEach(post => { %>
+          <div class="card mt-4">
+            <div class="card-body">
+              <h4 class="card-title"><%= post.title %></h4>
+             
+              <div class="card-text mb-2"><%=  post.description %></div>
+              <a href="/blog/Blog/<%= post.id  %>" class="btn btn-primary">Read More</a>
+              <a href="/blog/EditBlog/<%= post.id  %>" class="btn btn-info">Edit</a>
+              <form action="/blog/DelBlog/<%= post.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <% }) %>
+      </div>
+    <%- include('partials/foot.ejs') %>
+
+...
+```
+11. views/editblog.ejs
+```
+...
+
+        <%- include('partials/nav.ejs')  %>
+</section>
+    
+        
+        <div class="container position-relative">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8 col-lg-6 col-xl-5 col-xxl-4">
+                    <div class="card mb-5">
+                        <div class="card-body p-sm-5">
+                            <h2 class="text-center mb-4"></h2>
+                            <form method="post"  action="/blog/EditBlog/<%= Ablog.id %>?_method=PUT">
+                                <%- include('partials/edit_form.ejs')  %>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <%- include('partials/foot.ejs')  %>
+
+...
+
+```
+
+12. views/login.ejs
+```
+...
+
+                            <form class="text-center" method="post" action="/user/login" >
+                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">Login</button></div>
+                            </form>
+...
+```
+13. views/register.ejs
+```
+...
+                            <form class="text-center" method="post"  action="/user/register">
+                                <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                                <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
+                                <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">register</button></div>
+                            </form>
+...
+```
+
+---
+### 增加404
+
+在views裹開404.ejs
+
+1. views/404.ejs
+```
+404
+```
+
+2. ./server.js
+
+```
+...
+ app.get('*',(req,res)=>{
+    res.render('404')
+ })
+ ...
 ```
 
 ---
