@@ -6,16 +6,28 @@ import methodOverride from 'method-override';
 import User from "./models/User.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
+
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }))
 
 // set view engine
 app.set('view engine' , 'ejs');
 app.use(express.static(path.resolve('./public')));
 app.use(methodOverride('_method'));
+
+
+ app.get('*', async (req,res,next)=>{
+    res.locals.user = req.cookies.access_token
+
+    next()
+ })
+
+
 
 
 // connect mongoose
@@ -33,6 +45,8 @@ const connect = async () =>{
 
 // router
 app.get('/',(req,res)=>{
+    
+
     res.render('home')
 })
 
@@ -46,7 +60,7 @@ app.get('/register',(req,res)=>{
 
 app.post('/register', async(req,res)=>{
     const { email , password } = req.body;
-    const saltR加ounds = 10;
+    const saltRounds = 10;
     const salt = bcrypt.genSaltSync(saltRounds);
     const hash = bcrypt.hashSync(password, salt)
     console.log(req.body)
@@ -72,6 +86,8 @@ try {
 })
 
 
+
+
 app.get('/login', (req,res)=>{
     res.render('login')
 })
@@ -84,7 +100,7 @@ try {
     !user && res.status(404).json("email not found!!");
 
     // const ipw = await User.findOne({password : req.body.password})
-    const ipw = await bcrypt.compareSync(req.body.password , user.password)
+    const ipw = bcrypt.compareSync(req.body.password , user.password)
     !ipw && res.status(404).json("wrong password")
 
     // res.status(200).json(user.email)
@@ -94,7 +110,7 @@ try {
 
     res.cookie("access_token",token,{httpOnly: true})
 
-
+    console.log(`cookies:${req.cookies.access_token}`)
     res.redirect('/')
     
 } catch (error) {
@@ -187,6 +203,10 @@ app.delete('/DelBlog/:id',async(req,res)=>{
         res.status(404).json(error)
     }
 })
+
+
+
+
 
 
 app.listen(3000,()=>{

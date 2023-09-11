@@ -26,7 +26,8 @@
 - 指南（二十四）- 2610  
 - 指南（二十五）- 2698  
 - 指南（二十六）- 2732  
-- 指南（二十七）- 2798
+- 指南（二十七）- 2798  
+- 指南（二十八）- 2920  
 
 
 
@@ -2916,3 +2917,95 @@ try {
 ```
 
 ---
+
+## 指南（二十八）- 2920  
+要做的事：  
+- 在nav bar 出現loguot
+
+### 在nav bar 出現loguot  
+
+在終端
+```
+npm install cookie-parser
+```
+
+1. ./server.js  
+
+```
+...
+import cookieParser from 'cookie-parser';  //增加
+...
+
+app.use(express.json());
+app.use(cookieParser());  //增加
+app.use(express.urlencoded({ extended: false }))
+...
+
+
+ app.get('*', async (req,res,next)=>{
+    res.locals.user = req.cookies.access_token
+
+    next()
+ })
+
+ ....
+
+app.post('/login',async(req,res)=>{
+    const {email , password} = req.body;
+    console.log(req.body)
+try {
+    const user = await User.findOne({email :req.body.email})
+    !user && res.status(404).json("email not found!!");
+
+    // const ipw = await User.findOne({password : req.body.password})
+    const ipw = bcrypt.compareSync(req.body.password , user.password)
+    !ipw && res.status(404).json("wrong password")
+
+    // res.status(200).json(user.email)
+
+    const token = jwt.sign({id: user._id},"1234")
+    const {password , ...others} = user._doc;
+
+    res.cookie("access_token",token,{httpOnly: true})
+
+    console.log(`cookies:${req.cookies.access_token}`) //增加
+    res.redirect('/')
+    
+} catch (error) {
+    res.status(404).json(error)
+}
+
+
+
+})
+
+
+```
+
+2. views/partals/nav.ejs 
+
+```
+....
+
+
+                <% if(user) {  %>
+
+            <li class="nav-item" ><a class="nav-link" href="/logout"> ( logout )</a></li>
+              <%  }  else {  %>
+
+            <li class="nav-item"><a class="nav-link" href="/register">register</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login">login</a></li>
+
+            <%  } %>
+
+
+               
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+```
+
+----
