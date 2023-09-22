@@ -2,8 +2,21 @@ import express from "express";
 import path from "path";
 import methodOverride from 'method-override';
 import cookieParser from 'cookie-parser';
-import connect from './config/db.js';
+// import connect from './config/db.js';
+import mongoose from "mongoose"; 
+
 const app = express();
+
+
+const  connect = async () =>{
+    try {
+        await mongoose.connect('mongodb://localhost/blog')
+        console.log(' db is connect ')
+    } catch (error) {
+        console.log (error)
+    }
+
+}
 
 app.use(express.json());
 app.use(cookieParser());
@@ -14,15 +27,9 @@ app.set('view engine' , 'ejs');
 app.use(express.static(path.resolve('./public')));
 app.use(methodOverride('_method'));
 
-
  app.get('*', async (req,res,next)=>{
     res.locals.user = req.cookies.access_token
-
     next()
- })
-
- app.get('*',(req,res)=>{
-    res.render('404')
  })
 
 // router
@@ -39,6 +46,11 @@ import UserRoutes from './Routes/User.js';
 
 app.use('/blog',BlogRoutes);
 app.use('/user',UserRoutes)
+
+
+app.get('*',(req,res)=>{
+    res.render('404')
+ })
 
 app.listen(3000,()=>{
     connect();

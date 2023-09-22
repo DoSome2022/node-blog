@@ -29,6 +29,9 @@
 - 指南（二十七）- 2798  
 - 指南（二十八）- 2920  
 - 指南（二十九）- 3013   
+- 指南（三十）第一部完結 - 3035  
+- 指南（三十一）- 3503  
+
 
 
 
@@ -3494,6 +3497,117 @@ export default Router
     res.render('404')
  })
  ...
+```
+
+---
+
+## 指南（三十一）- 3503  
+要做的事:
+- 深入運用jwt
+
+### 深入運用jwt
+
+運用jwt來進行授權
+
+1. 在目錄 開一個verifyToken.js
+
+```
+import jwt from "jsonwebtoken";
+
+export const verifyToken = (req,res,next) => {
+    const token = req.cookies.access_token;
+    if(!token) return res.json('not authenticated!')
+
+    jwt.verify(token, "1234", (err, user) => {
+        if (err) return next(createError(403, "Token is not valid!"));
+        req.user = user;
+        next()
+      });
+
+}
+```
+
+2. Routes/User.js
+```
+import express from 'express';
+const Router = express.Router();
+import {
+    GetLogin,
+    GetLogout,
+    GetRegister,
+    PostLogin,
+    PostRegister,
+    GetCurrent
+
+} from "../controllers/User.js";
+
+
+import  Jwt  from 'jsonwebtoken';
+
+import { verifyToken } from '../verifyToken.js';  //增加
+
+
+Router.get('/register',GetRegister)
+
+Router.post('/register', PostRegister)
+
+Router.get('/login',GetLogin)
+
+Router.post('/login',PostLogin)
+
+Router.get('/logout',GetLogout)
+
+Router.get('/current',verifyToken,GetCurrent) // 增加
+
+
+
+export default Router
+
+```
+
+3. controllers/User.js
+
+```
+...
+
+
+export const PostLogin = async (req,res) =>{
+    const {email , password} = req.body;
+    // console.log(req.body)
+try {
+    const user = await User.findOne({email :req.body.email})
+    !user && res.status(404).json("email not found!!");
+
+    // const ipw = await User.findOne({password : req.body.password})
+    const ipw = bcrypt.compareSync(req.body.password , user.password)
+    !ipw && res.status(404).json("wrong password")
+
+    // res.status(200).json(user.email)
+
+    const token = jwt.sign({
+        id: user._id , 
+        email: user.email
+    },"1234")
+    const {password , ...others} = user._doc;
+    console.log(others)
+
+    res.cookie("access_token ",token,{httpOnly: true})
+
+   // console.log(`cookies:${req.cookies.access_token}`)
+    res.redirect('/')
+    
+} catch (error) {
+    res.status(404).json(error)
+}
+
+}
+
+export const GetCurrent = (req,res) =>{   //增加
+    User.find({}, (err, result) => {        //增加
+        res.status(200).json({ data: result });  //增加
+      });           //增加
+}           //增加
+
 ```
 
 ---

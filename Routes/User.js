@@ -5,9 +5,16 @@ import {
     GetLogout,
     GetRegister,
     PostLogin,
-    PostRegister
+    PostRegister,
+    GetCurrent
 
-} from "../controllers/User.js"
+} from "../controllers/User.js";
+
+
+import  Jwt  from 'jsonwebtoken';
+
+import { verifyToken } from '../verifyToken.js';
+
 
 Router.get('/register',GetRegister)
 
@@ -17,7 +24,9 @@ Router.get('/login',GetLogin)
 
 Router.post('/login',PostLogin)
 
-Router.get('/logout',(GetLogout))
+Router.get('/logout',GetLogout)
+
+Router.get('/current',verifyToken,GetCurrent)
 
 
 

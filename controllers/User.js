@@ -2,7 +2,6 @@ import User from "../models/User.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-
 export const  GetRegister = (req,res)=>{
     res.render('register')
 }
@@ -12,6 +11,8 @@ export const GetLogin = (req,res)=>{
 }
 
 export const GetLogout = (req,res) =>{
+    res.clearCookie('Bearer')
+    res.clearCookie('csrftoken')
     res.clearCookie('access_token')
     res.redirect('/')
 }
@@ -44,7 +45,7 @@ try {
 
 export const PostLogin = async (req,res) =>{
     const {email , password} = req.body;
-    console.log(req.body)
+    // console.log(req.body)
 try {
     const user = await User.findOne({email :req.body.email})
     !user && res.status(404).json("email not found!!");
@@ -55,16 +56,26 @@ try {
 
     // res.status(200).json(user.email)
 
-    const token = jwt.sign({id: user._id},"1234")
+    const token = jwt.sign({
+        id: user._id , 
+        email: user.email
+    },"1234")
     const {password , ...others} = user._doc;
+    console.log(others)
 
-    res.cookie("access_token",token,{httpOnly: true})
+    res.cookie("access_token ",token,{httpOnly: true})
 
-    console.log(`cookies:${req.cookies.access_token}`)
+   // console.log(`cookies:${req.cookies.access_token}`)
     res.redirect('/')
     
 } catch (error) {
     res.status(404).json(error)
 }
 
+}
+
+export const GetCurrent = (req,res) =>{
+    User.find({}, (err, result) => {
+        res.status(200).json({ data: result });
+      });
 }
